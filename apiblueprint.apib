@@ -1,0 +1,603 @@
+FORMAT: 1A
+# Hospital-OS Admin Service Document
+
+List of APIs for Hospital-OS Admin Service.
+
+# Group Diet 
+
+## Diet categories [/diet-categories]
+
+### List Diet Category [GET /diet-categories{?term,active,page,limit}]
+
++ Parameters
+    + term: `string` (optional, query) - Filter by diet category label or code
+    + active: `string` (optional, query) - Filter by active
+        + Default: `1`
+    + page: `integer` (optional, query) - Page start with 1
+        + Default: `1`    
+    + limit: `integer` (optional, query) - Limit page size or put 0 when paginations are not required
+        + Default: `10`
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - Status code success
+        - data(array[DietCategory]) - Array of diet Category
+        - pagination(pagination) - Pagination details
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+    + Schema
+
+            {
+                "data": "ทดสอบ"
+            }
+                
+### Create Diet Category [POST /diet-categories]
+
++ Request Example: 1 (application/json)
+    + Headers
+    
+            Authorization: 123
+
+    + Attributes
+        + label: ทดสอบ (required)
+
++ Response 400 (application/json)
+   + Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.Categories.InvalidBodyError
+        - instance: /api/admin/v1/diet-Categories(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: code (string) - Name of the invalid parameter
+                - reason: code is a required field (string) - Reason why the parameter is invalid
+
++ Request Example: 2 (application/json)
+    + Headers
+    
+            Authorization: 123
+
+    + Attributes
+        + code: DT001 (required)
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.Categories.InvalidBodyError
+        - instance: /api/admin/v1/diet-Categories(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: label (string) - Name of the invalid parameter
+                - reason: label is a required field (string) - Reason why the parameter is invalid
+
++ Request Example: 3 (application/json)
+    + Headers
+    
+            Authorization: 123
+
+    + Body
+
+            {
+            
+            }  
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: `your request parameters didn't validate`(string)
+        - code: `ADMIN.Diet.Categories.InvalidBodyError`
+        - instance: `/api/admin/v1/diet-categories`(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: `code` (string) - Name of the invalid parameter
+                - reason: `code is a required field` (string) - Reason why the parameter is invalid
+            - (object)
+                - name: `label` (string) - Name of the invalid parameter
+                - reason: `label is a required field` (string) - Reason why the parameter is invalid
++ Request Example: 4 (application/json)
+    + Headers
+    
+            Authorization: 123
+
+    + Attributes
+        + code: DT001 (required)
+        + label: ทดสอบ (required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        - status: `201` (number) - Status code success
+        - data (array[DietCategory]) - Array of diet category
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id 
+
+- Request Example: 5 (application/json)
+    + Headers
+    
+            Authorization: 123
+
+    - Attributes
+        - code: DT001 (required)
+        - label: ทดสอบ (required)
+        - active: 1 
+
++ Response 201 (application/json)
+    + Attributes (object)
+        - status: `201` (number) - Status code success
+        - data (array[DietCategory]) - Array of diet category
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id 
+
+### GET Diet Category [GET /diet-categories/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_category_id
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - Status code success
+        - data (array[DietCategory]) - Array of diet categories
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+
+### Update Diet Category [PATCH /diet-categories/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_category_id
+
++ Request Example: 1 (application/json)
+    + Headers
+    
+            Authorization: 123
+
+    + Attributes (object)
+        - code: `DT001`(string) - code
+        - label: `ทดสอบ`(string) - label
+        - active: `1` (string) - active
+        
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - Status code success
+        - data(array[DietCategory]) - Array of diet categories
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+
++ Request Example: 2 (application/json)
+    + Headers
+    
+            Authorization: 123
+            
+    + Body
+
+            {
+            
+            }  
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: `your request body is empty`(string)
+        - code: `ADMIN.Diet.Categories.InvalidBodyError`
+        - instance: `/api/admin/v1/diet-categories`(string)
+        
+
+### Delete Diet Category [DELETE /diet-categories/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_category_id
+
++ Response 204
+
+
+## Diet types [/diet-types]
+
+### List Diet Type [GET /diet-types{?term,active,page,limit}]
+
++ Parameters
+    + term: `string` (optional, query) - Filter by diet type label or code
+    + active: `string` (optional, query) - Filter by active
+    + page: `integer` (optional, query) - Page start with 1
+        + Default: `1`
+    + limit: `integer` (optional, query) - Limit page size or put 0 when paginations are not required
+        + Default: `10`
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - status code success
+        - data(array[DietType]) - Array of diet types
+        - pagination(pagination) - Pagination details
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+
+### Create Diet Type [POST /diet-types]
+
++ Request Example:  1(application/json)
+    + Attributes
+        - code: DT001 (required)
+        - label: ทดสอบ (required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        - status: `201` (number) - Status code  success
+        - data (array[DietType]) - Array of diet types
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+
++ Request Example: 2
+
+    + Body
+
+            {
+                "label": "ทดสอบ"
+            }
+    
+
++ Response 400 (application/json)
+   + Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.Types.InvalidBodyError
+        - instance: /api/admin/v1/diet-Types(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: code (string) - Name of the invalid parameter
+                - reason: code is a required field (string) - Reason why the parameter is invalid
+
++ Request Example: 3
+    + Body
+
+            {
+                "code": "DT001"
+            }
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.Types.InvalidBodyError
+        - instance: /api/admin/v1/diet-Types(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: label (string) - Name of the invalid parameter
+                - reason: label is a required field (string) - Reason why the parameter is invalid
+
++ Request (application/json)
+    + Body
+
+            {
+            
+            } 
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: `your request parameters didn't validate`(string)
+        - code: `ADMIN.Diet.Types.InvalidBodyError`
+        - instance: `/api/admin/v1/diet-Types`(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: `code` (string) - Name of the invalid parameter
+                - reason: `code is a required field` (string) - Reason why the parameter is invalid
+            - (object)
+                - name: `label` (string) - Name of the invalid parameter
+                - reason: `label is a required field` (string) - Reason why the parameter is invalid
+
+### GET Diet Type [GET /diet-types/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_type_id
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - Status code success
+        - data (array[DietType]) - Array of diet types
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+
+### Update Diet Type [PATCH /diet-types/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_type_id
+
++ Request Example:  1 (application/json)
+    + Attributes (object)
+        - code: DT001 (required)
+        - label: ทดสอบ (required)
+        - active: 1
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - Status code success
+        - data(array[DietType]) - Array of diet type
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+ 
++ Request Example: 2 (application/json)
+    + Body
+
+            {
+            
+            }  
+
++ Response 400 (application/json)  
+    + Attributes (400)
+        - detail: `your request body is empty`(string)
+        - code: `ADMIN.Diet.types.InvalidBodyError`
+        - instance: `/api/admin/v1/diet-types`(string)
+
+### Delete Diet Type [DELETE /diet-types/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_type_id
+
++ Response 204
+
+
+## Diet Menus [/diet-menus]
+
+### List Diet Menu [GET /diet-menus{?term,active,page,limit}]
+
++ Parameters
+    + term: `string` (optional, query) - Filter by diet menu label or code
+    + active: `string` (optional, query) - Filter by active
+    + page: `integer` (optional, query) - Page start with 1
+        + Default: `1`
+    + limit: `integer` (optional, query) - Limit page size or put 0 when paginations are not required
+        + Default: `10`
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - status code success
+        - data(array[DietMenu]) - Array of diet menus
+        
+        - pagination(pagination) - Pagination details
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+
+### Create Diet Menu [POST /diet-menus]
+
++ Request Example: 1(application/json)
+    + Attributes (object)
+        - code: `DT001` (required) - The code for the diet menu.
+        - label: `ทดสอบ` (required) - The label for the diet menu.
+        - diet_type_id: `1` (required) - The ID of the diet type associated with the menu.
+
++ Response 201 (application/json)
+    + Attributes (object)
+        - status: 201 (number) - Status code  success
+        - data (array[DietMenu]) - Array of diet menus
+        - request_id: 9942c6b5fa43bcc52115c3cc15b04a20(string) - Request id
+
++ Request Example: 2
+
+    + Body
+
+            {
+                "label": "ทดสอบ",
+                "diet_type_id": "1"
+            }
+
++ Response 400 (application/json)
+   + Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.menus.InvalidBodyError
+        - instance: /api/admin/v1/diet-menus(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: code (string) - Name of the invalid parameter
+                - reason: code is a required field (string) - Reason why the parameter is invalid
+
++ Request Example: 3
+    + Body
+
+            {
+                "code": "DT001",
+                "diet_type_id": "1"
+            }
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.menus.InvalidBodyError
+        - instance: /api/admin/v1/diet-menus(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: label (string) - Name of the invalid parameter
+                - reason: label is a required field (string) - Reason why the parameter is invalid
+
++ Request Example: 4
+
+    + Body
+
+            {
+                "code": "DT001",
+                "label": "ทดสอบ"
+            }
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.menus.InvalidBodyError
+        - instance: /api/admin/v1/diet-menus(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: diet_type_id (string) - Name of the invalid parameter
+                - reason: diet_type_id is a required field (string) - Reason why the parameter is invalid
+
++ Request Example: 5
+
+    + Body
+
+            {
+                "diet_type_id": "1"
+            }
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.menus.InvalidBodyError
+        - instance: /api/admin/v1/diet-menus(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: code (string) - Name of the invalid parameter
+                - reason: code is a required field (string) - Reason why the parameter is invalid
+            - (object)
+                - name: label (string) - Name of the invalid parameter
+                - reason: label is a required field (string) - Reason why the parameter is invalid
+
++ Request Example: 6
+
+    + Body
+
+            {
+                "label": "ทดสอบ"
+            }
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.menus.InvalidBodyError
+        - instance: /api/admin/v1/diet-menus(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: code (string) - Name of the invalid parameter
+                - reason: code is a required field (string) - Reason why the parameter is invalid
+            - (object)
+                - name: diet_type_id (string) - Name of the invalid parameter
+                - reason: diet_type_id is a required field (string) - Reason why the parameter is invalid
+
++ Request Example: 7
+
+    + Body
+
+            {
+                "code": "DT001"
+            }
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.menus.InvalidBodyError
+        - instance: /api/admin/v1/diet-menus(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: label (string) - Name of the invalid parameter
+                - reason: label is a required field (string) - Reason why the parameter is invalid
+            - (object)
+                - name: diet_type_id (string) - Name of the invalid parameter
+                - reason: diet_type_id is a required field (string) - Reason why the parameter is invalid
+
++ Request Example: 8
+
+    + Body
+
+            {
+
+            }
+
++ Response 400 (application/json)
+    + Attributes (400)
+        - detail: your request parameters didn't validate(string)
+        - code: ADMIN.Diet.menus.InvalidBodyError
+        - instance: /api/admin/v1/diet-menus(string)
+        - invalid_params (array[object]) - List of invalid parameters
+            - (object)
+                - name: code (string) - Name of the invalid parameter
+                - reason: code is a required field (string) - Reason why the parameter is invalid
+            - (object)
+                - name: label (string) - Name of the invalid parameter
+                - reason: label is a required field (string) - Reason why the parameter is invalid
+            - (object)
+                - name: diet_type_id (string) - Name of the invalid parameter
+                - reason: diet_type_id is a required field (string) - Reason why the parameter is invalid
+
+### GET Diet Menu [GET /diet-menus/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_menu_id
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - Status code success
+        - data (array[DietMenu]) - Array of diet menus
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+
+### Update Diet Menu [PATCH /diet-menus/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_menu_id
+
++ Request Example: 1 (application/json)
+    + Attributes (object)
+        - code: DT001 (required)
+        - label: ทดสอบ (required)
+        - diet_type: 1 (required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - Status code success
+        - data(array[DietMenu]) - Array of diet menu
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+
++ Request Example: 2 (application/json)
+    + Body
+
+            {
+            
+            }  
+
++ Response 400 (application/json)  
+    + Attributes (400)
+        - detail: `your request body is empty`(string)
+        - code: `ADMIN.Diet.menus.InvalidBodyError`
+        - instance: `/api/admin/v1/diet-menus`(string)
+
+### Delete Diet Menu [DELETE /diet-menus/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_menu_id
+
++ Response 204
+
+# Data Structures
+
+## DietCategory (object)
+- id: `string` (string) - b_diet_category_id
+- code: `string` (string) - code
+- label: `string` (string) - description
+- active: `string` (string) - active
+- user_record_id: `string` (string) - user_record_id
+- record_date_time: `string` (string) - record_date_time
+- user_update_id: `string` (string) - user_update_id
+- update_date_time: `string` (string) - update_date_time
+
+## DietType (object)
+- id: `string` (string) - b_diet_type_id
+- code: `string` (string) - code
+- label: `string` (string) - description
+- active: `string` (string) - active
+- diet_type_abbr: `string` (string) - diet_type_abbr
+- diet_type_color: `string` (string) - diet_type_color
+- user_record_id: `string` (string) - user_record_id
+- record_date_time: `string` (string) - record_date_time
+- user_update_id: `string` (string) - user_update_id
+- update_date_time: `string` (string) - update_date_time
+
+## DietMenu (object)
+- id: `string` (string) - b_diet_menu_id
+- diet_type (object)
+    - id: `string` (string) - b_diet_type_id
+    - code: `string` (string) - code
+    - label: `string` (string) - description
+- code: `string` (string) - code
+- label: `string` (string) - description
+- code: `string` (string) - code
+- label: `string` (string) - description
+- active: `string` (string) - active
+- details: `string` (string) - details
+- user_record_id: `string` (string) - user_record_id
+- record_date_time: `string` (string) - record_date_time
+- user_update_id: `string` (string) - user_update_id
+- update_date_time: `string` (string) - update_date_time
+
+## pagination (object)
+- count: `20` (number) - Number of items on the current page.
+- limit: `10` (number) - Limit of items per page.
+- next_page: `2`(number) - Next page number.
+- next_url: `http://localhost:8800/api/example/v1/examples?page=2` (string) - URL to fetch the next page.
+- page: `1` (number) - Current page number.
+- prev_page: `0` (number)- Previous page number.
+- prev_url: `http://localhost:8800/api/example/v1/examples?page=1` (string) - URL to fetch the previous page.
+- total_page: `2`(number) - Total number of pages.
+
+## 400 (object)
+- status: `400` (number) - status code 400
+- request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string)
+- title: `Unprocessable Content(string)
+- type: `https://datatracker.ietf.org/doc/html/rfc4918#section-11.2`(string)
