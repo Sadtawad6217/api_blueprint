@@ -1,0 +1,51 @@
+FORMAT: 1A
+# Hospital-OS Admin Service Document
+
+List of APIs for Hospital-OS Admin Service.
+
+# Group Diet
+
+## Diet categories [/diet-categories]
+
+### GET Diet Category [GET /diet-categories/{id}]
+
++ Parameters
+    + id (string, required) - b_diet_category_id
+
++ Request 
+     + Headers
+
+            Authentication: 12345
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - status: `200` (number) - Status code success
+        - data (array[DietCategory]) - Array of diet categories
+        - request_id: `9942c6b5fa43bcc52115c3cc15b04a20`(string) - Request id
+
++ Request 
+     + Attributes (object)
+
++ Response 401 (application/json)
+    + Attributes (401)
+        - detail: `your request Authorization didn't validate`(string)
+        - code: `ADMIN.Diet.Categories.InvalidBodyError`
+        - instance: `/api/admin/v1/diet-categories`(string)
+    
+# Data Structures
+
+## DietCategory (object)
+- id: `string` (string) - Unique ID of the diet category (`b_diet_category_id`)
+- code: `string` (string) - Code representing the diet category
+- label: `string` (string) - Description or label of the diet category
+- active: `string` (string) - Active status of the diet category (`0` or `1`)
+- user_record_id: `string` (string) - ID of the user who recorded the category
+- record_date_time: `string` (string) - Date and time when the category was recorded
+- user_update_id: `string` (string) - ID of the user who last updated the category
+- update_date_time: `string` (string) - Date and time of the last update
+
+## 401 (object)
+- status: `401` (number) - Error status code1
+- request_id: `9942c6b5fa43bcc52115c3cc15b04a20` (string) - Request id
+- title: `Unauthorized` (string) - Error title
+- type: `https://datatracker.ietf.org/doc/html/rfc4918#section-11.2` (string) - Error type
